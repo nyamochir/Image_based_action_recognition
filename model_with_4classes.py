@@ -21,7 +21,8 @@ import shutil
 
 import os
 classes = ['applauding', 'phoning', 'jumping', 'cutting_trees']
- 
+classes = ['smoking', 'throwing_frisby', 'washing_dishes', 'blowing_bubbles', 'cleaning_the_floor', 'running', 'playing_violin', 'pouring_liquid', 'fishing', 'jumping', 'using_a_computer', 'riding_a_horse', 'writing_on_a_book', 'phoning', 'cutting_vegetables', 'pushing_a_cart', 'drinking', 'walking_the_dog', 'shooting_an_arrow', 'watching_TV', 'climbing', 'cutting_trees', 'feeding_a_horse', 'fixing_a_car', 'fixing_a_bike', 'waving_hands', 'playing_guitar', 'gardening', 'looking_through_a_telescope', 'reading', 'riding_a_bike', 'cooking', 'looking_through_a_microscope', 'applauding', 'brushing_teeth', 'rowing_a_boat', 'texting_message', 'writing_on_a_board', 'taking_photos', 'holding_an_umbrella']
+classes = classes[:13]# first 13 of the all classes will be used to exhance the algorithm
 #for dirname, _, filenames in os.walk('/kaggle/input'):
 #    for filename in filenames:
 #        print(os.path.join(dirname, filename))
@@ -85,32 +86,33 @@ def distribute_files():
                 index+=1
                 
 def get_model():
+    """"""
     
     model = Sequential()
-    model.add(Conv2D(32, (3, 3), input_shape = (200, 200, 3), padding = 'same', activation = 'relu'))
-    model.add(Conv2D(32, (3, 3), activation ='relu', padding = 'same'))
+    model.add(Conv2D(16, (3, 3), input_shape = (224, 224, 1), padding = 'same', activation = 'relu'))
+    model.add(Conv2D(16, (3, 3), activation ='relu', padding = 'same'))
     model.add(MaxPooling2D(pool_size=(2, 2)))
     
-    model.add(Conv2D(64, (3, 3), activation = 'relu', padding = 'same'))
-    model.add(Conv2D(64, (3, 3), activation = 'relu', padding = 'same'))
-    #model.add(Conv2D(64, 2, 2, activation =))
+    model.add(Conv2D(32, (3, 3), activation = 'relu', padding = 'same'))
+    model.add(Conv2D(32, (3, 3), activation = 'relu', padding = 'same'))
     model.add(MaxPooling2D(2, 2))
-    model.add(Conv2D(128, (3, 3), activation = 'relu', padding = 'same'))
-    model.add(Conv2D(128, (3, 3), activation = 'relu', padding = 'same'))
+    #model.add(Conv2D(64, 2, 2, activation =))
+    
+    model.add(Conv2D(64, (3, 3), activation = 'relu', padding = 'same'))
+    model.add(Conv2D(64, (3, 3), activation = 'relu', padding = 'same'))
     model.add(MaxPooling2D(2, 2))
     
-    #model.add(Conv2D(128, (3, 3), activation = 'relu', padding = 'same'))
-    #model.add(Conv2D(128, (3, 3), activation = 'relu', padding = 'same'))
+    model.add(Conv2D(128, (3, 3), activation = 'relu', padding = 'same'))
+    model.add(Conv2D(128, (3, 3), activation = 'relu', padding = 'same'))
     
     #model.add(MaxPooling2D(2, 2))
     model.add(Flatten())
     model.add(Dense(256, activation = 'relu'))
     model.add(Dense(256, activation = 'relu'))
-    model.add(Dense(128, activation = 'relu'))
-    model.add(Dense(128, activation = 'relu'))
-    model.add(Dense(128, activation = 'relu'))
-    model.add(Dense(4, activation= 'softmax'))
-    model.compile(optimizer = 'adam', loss = 'categorical_crossentropy', metrics = ['accuracy'])
+    #model.add(Dense(128, activation = 'relu'))
+    #model.add(Dense(128, activation = 'relu'))
+    #model.add(Dense(1024, activation = 'relu'))
+    model.add(Dense(13, activation= 'softmax'))
     return model
 
 def train_model(model):
