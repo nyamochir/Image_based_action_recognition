@@ -122,5 +122,5 @@ def initial_frames(model):
     print(data.shape)
     return data
 current_model =   model.get_model()
-current_model.load_weights("current_model_13_class_and_single_test_batch.h5")
+current_model.load_weights("pretrained_weights/current_model_13_class_and_single_test_batch_00add.h5")
 data = initial_frames(current_model)
